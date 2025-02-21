@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тест по английскому языку</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Тест по английскому языку</h1>
+
+        <!-- Видео с Google Drive -->
+        <div class="video-container">
+            <iframe
+                width="100%"
+                height="500"
+                src="https://drive.google.com/file/d/1-CxfpPlM7Ixf74ZPg4aoe3bErfjUQUc5/preview"
+                title="Video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <!-- Тест -->
+        <div class="test-container">
+            <div id="question-container">
+                <p id="question-text"></p>
+                <div id="options-container">
+                    <!-- Варианты ответов будут добавлены с помощью JavaScript -->
+                </div>
+                <button id="check-answer">Проверить</button>
+                <button id="speak-question">Озвучить вопрос</button>
+            </div>
+            <div id="result-container">
+                <p id="result-text"></p>
+                <button id="next-question">Следующий вопрос</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

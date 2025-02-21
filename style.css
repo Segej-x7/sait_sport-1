@@ -1,0 +1,156 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px 0;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.video-container {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+iframe {
+    width: 100%;
+    height: 500px; /* Высота для десктопов */
+    border-radius: 8px;
+}
+
+.test-container {
+    width: 100%;
+}
+
+#question-container, #result-container {
+    margin-bottom: 20px;
+}
+
+#options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.option {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+}
+
+.option:hover {
+    background-color: #e0e0e0;
+}
+
+.option.selected {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.option.selected:hover {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    margin: 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #fff;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#result-text {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Медиа-запросы для мобильных устройств */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 20px; /* Уменьшаем размер заголовка */
+    }
+
+    iframe {
+        height: 300px; /* Уменьшаем высоту видео */
+    }
+
+    .container {
+        padding: 15px; /* Уменьшаем отступы */
+    }
+
+    .option {
+        font-size: 14px; /* Уменьшаем размер текста в кнопках */
+        padding: 8px;
+    }
+
+    button {
+        font-size: 14px; /* Уменьшаем размер текста в кнопках */
+        padding: 8px 16px;
+    }
+
+    #result-text {
+        font-size: 16px; /* Уменьшаем размер текста результата */
+    }
+}
+
+@media (max-width: 480px) {
+    iframe {
+        height: 200px; /* Ещё больше уменьшаем высоту видео для очень маленьких экранов */
+    }
+
+    h1 {
+        font-size: 18px; /* Ещё меньше размер заголовка */
+    }
+
+    .container {
+        padding: 10px; /* Ещё меньше отступы */
+    }
+
+    .option {
+        font-size: 12px; /* Ещё меньше размер текста в кнопках */
+        padding: 6px;
+    }
+
+    button {
+        font-size: 12px; /* Ещё меньше размер текста в кнопках */
+        padding: 6px 12px;
+    }
+
+    #result-text {
+        font-size: 14px; /* Ещё меньше размер текста результата */
+    }
+}
