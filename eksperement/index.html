@@ -108,6 +108,8 @@
       // Обработчик результатов распознавания
       recognition.onresult = (event) => {
         let interim_transcript = '';
+        final_transcript = ''; // Очищаем финальный текст перед обработкой новых результатов
+
         for (let i = event.resultIndex; i < event.results.length; i++) {
           if (event.results[i].isFinal) {
             const result = editInterim(event.results[i][0].transcript);
@@ -116,6 +118,7 @@
             interim_transcript += event.results[i][0].transcript;
           }
         }
+
         document.getElementById('interim_text').value = interim_transcript;
         final_transcript = editFinal(final_transcript);
         document.getElementById('final_text').value = final_transcript;
