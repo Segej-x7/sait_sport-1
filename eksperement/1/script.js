@@ -19,6 +19,11 @@ recognition.lang = 'en-US';
 recognition.interimResults = false;
 recognition.maxAlternatives = 1;
 
+// Функция для удаления знаков препинания из строки
+function removePunctuation(text) {
+  return text.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?]/g, ''); // Удаляем знаки препинания
+}
+
 // Обработчик начала распознавания
 recognition.onstart = () => {
   recognizing = true;
@@ -49,7 +54,11 @@ recognition.onresult = (event) => {
   // Отображаем произнесенную фразу
   document.getElementById('user-input').textContent = userPhrase;
 
-  if (userPhrase.toLowerCase() === correctPhrase) {
+  // Удаляем знаки препинания из обеих фраз
+  const cleanedUserPhrase = removePunctuation(userPhrase.toLowerCase());
+  const cleanedCorrectPhrase = removePunctuation(correctPhrase);
+
+  if (cleanedUserPhrase === cleanedCorrectPhrase) {
     document.getElementById('result').textContent = 'Верно!';
   } else {
     document.getElementById('result').textContent = 'Ошибка. Слушайте правильное произношение:';
