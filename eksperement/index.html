@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -37,7 +35,7 @@
   <div id="wrapper">
     <h1>Speech Recognition - Dictaphone</h1>
     <textarea id="final_text" cols="30" rows="10"></textarea>
-    <input type="text" id="interim_text" />
+    <input type="text" id="interim_text" readonly />
     <div id="buttons">
       <button class="start">Старт</button>
       <button class="stop">Стоп</button>
@@ -51,105 +49,116 @@
     let final_transcript = '';
     let recognizing = false;
 
-    const speechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    const recognition = new speechRecognition();
-    recognition.continuous = true;
-    recognition.interimResults = true;
-    recognition.maxAlternatives = 3;
-    recognition.lang = 'ru-RU';
+    // Проверка поддержки Web Speech API
+    if (!('webkitSpeechRecognition' in window)) {
+      alert('Ваш браузер не поддерживает распознавание речи. Пожалуйста, используйте Google Chrome.');
+    } else {
+      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.continuous = true;
+      recognition.interimResults = true;
+      recognition.lang = 'ru-RU';
 
-    const DICTIONARY = {
-      точка: '.',
-      запятая: ',',
-      вопрос: '?',
-      восклицание: '!',
-      двоеточие: ':',
-      тире: '-',
-      абзац: '\n',
-      отступ: '\t'
-    };
+      const DICTIONARY = {
+        точка: '.',
+        запятая: ',',
+        вопрос: '?',
+        восклицание: '!',
+        двоеточие: ':',
+        тире: '-',
+        абзац: '\n',
+        отступ: '\t'
+      };
 
-    function editInterim(s) {
-      return s
-        .split(' ')
-        .map((word) => {
-          word = word.trim();
-          return DICTIONARY[word.toLowerCase()] ? DICTIONARY[word.toLowerCase()] : word;
-        })
-        .join(' ');
-    }
+      // Функция для редактирования промежуточного текста
+      function editInterim(s) {
+        return s
+          .split(' ')
+          .map((word) => {
+            word = word.trim();
+            return DICTIONARY[word.toLowerCase()] ? DICTIONARY[word.toLowerCase()] : word;
+          })
+          .join(' ');
+      }
 
-    function editFinal(s) {
-      return s.replace(/\s{1,}([\.+,?!:-])/g, '$1');
-    }
+      // Функция для редактирования финального текста
+      function editFinal(s) {
+        return s.replace(/\s{1,}([\.+,?!:-])/g, '$1');
+      }
 
-    recognition.onstart = () => {
-      console.log('Распознавание голоса запущено');
-    };
+      // Обработчик начала распознавания
+      recognition.onstart = () => {
+        console.log('Распознавание голоса запущено');
+        recognizing = true;
+      };
 
-    recognition.onerror = ({ error }) => {
-      console.error(error);
-    };
+      // Обработчик ошибок
+      recognition.onerror = (event) => {
+        console.error('Ошибка распознавания:', event.error);
+        recognizing = false;
+      };
 
-    recognition.onend = () => {
-      console.log('Распознавание голоса закончено');
-      if (!recognizing) return;
-      recognition.start();
-    };
-
-    recognition.onresult = (e) => {
-      let interim_transcript = '';
-      for (let i = e.resultIndex; i < e.results.length; i++) {
-        if (e.results[i].isFinal) {
-          const result = editInterim(e.results[i][0].transcript);
-          final_transcript += result;
-        } else {
-          interim_transcript += e.results[i][0].transcript;
+      // Обработчик завершения распознавания
+      recognition.onend = () => {
+        console.log('Распознавание голоса закончено');
+        if (recognizing) {
+          recognition.start(); // Перезапуск, если распознавание не остановлено
         }
-      }
-      interim_text.value = interim_transcript;
-      final_transcript = editFinal(final_transcript);
-      final_text.value = final_transcript;
-    };
+      };
 
-    document.getElementById('buttons').onclick = ({ target }) => {
-      switch (target.className) {
-        case 'start':
-          final_transcript = '';
-          recognition.start();
-          recognizing = true;
-          final_text.value = '';
-          interim_text.value = '';
-          break;
-        case 'stop':
-          recognition.stop();
-          recognizing = false;
-          break;
-        case 'abort':
-          recognition.abort();
-          recognizing = false;
-          break;
-        case 'copy':
-          navigator.clipboard.writeText(final_text.value);
-          target.textContent = 'Готово';
-          const timerId = setTimeout(() => {
-            target.textContent = 'Копия';
-            clearTimeout(timerId);
-          }, 3000);
-          break;
-        case 'clear':
-          final_transcript = '';
-          final_text.value = '';
-          break;
-        default:
-          break;
-      }
-    };
+      // Обработчик результатов распознавания
+      recognition.onresult = (event) => {
+        let interim_transcript = '';
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          if (event.results[i].isFinal) {
+            const result = editInterim(event.results[i][0].transcript);
+            final_transcript += result;
+          } else {
+            interim_transcript += event.results[i][0].transcript;
+          }
+        }
+        document.getElementById('interim_text').value = interim_transcript;
+        final_transcript = editFinal(final_transcript);
+        document.getElementById('final_text').value = final_transcript;
+      };
 
-    function removeLastWord() {
-      const oldStr = final_text.value;
-      const newStr = oldStr.substring(0, oldStr.lastIndexOf(' '));
-      final_text.value = newStr;
+      // Обработчик нажатия кнопок
+      document.getElementById('buttons').onclick = (event) => {
+        const target = event.target;
+        switch (target.className) {
+          case 'start':
+            final_transcript = '';
+            recognition.start();
+            document.getElementById('final_text').value = '';
+            document.getElementById('interim_text').value = '';
+            break;
+          case 'stop':
+            recognition.stop();
+            recognizing = false;
+            break;
+          case 'abort':
+            recognition.abort();
+            recognizing = false;
+            break;
+          case 'copy':
+            navigator.clipboard.writeText(document.getElementById('final_text').value)
+              .then(() => {
+                target.textContent = 'Готово';
+                setTimeout(() => {
+                  target.textContent = 'Копия';
+                }, 3000);
+              })
+              .catch((err) => {
+                console.error('Ошибка копирования:', err);
+              });
+            break;
+          case 'clear':
+            final_transcript = '';
+            document.getElementById('final_text').value = '';
+            break;
+          default:
+            break;
+        }
+      };
     }
   </script>
 </body>
