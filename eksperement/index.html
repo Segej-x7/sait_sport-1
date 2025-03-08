@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,11 +37,11 @@
     <textarea id="final_text" cols="30" rows="10"></textarea>
     <input type="text" id="interim_text" readonly />
     <div id="buttons">
-      <button class="start">Старт</button>
-      <button class="stop">Стоп</button>
-      <button class="abort">Сброс</button>
-      <button class="copy">Копия</button>
-      <button class="clear">Очистить</button>
+      <button class="start">Start</button>
+      <button class="stop">Stop</button>
+      <button class="abort">Reset</button>
+      <button class="copy">Copy</button>
+      <button class="clear">Clear</button>
     </div>
   </div>
 
@@ -51,22 +51,22 @@
 
     // Проверка поддержки Web Speech API
     if (!('webkitSpeechRecognition' in window)) {
-      alert('Ваш браузер не поддерживает распознавание речи. Пожалуйста, используйте Google Chrome.');
+      alert('Your browser does not support speech recognition. Please use Google Chrome.');
     } else {
       const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
       recognition.continuous = true;
       recognition.interimResults = true;
-      recognition.lang = 'ru-RU';
+      recognition.lang = 'en-US'; // Устанавливаем язык распознавания на английский
 
       const DICTIONARY = {
-        точка: '.',
-        запятая: ',',
-        вопрос: '?',
-        восклицание: '!',
-        двоеточие: ':',
-        тире: '-',
-        абзац: '\n',
-        отступ: '\t'
+        period: '.',
+        comma: ',',
+        question: '?',
+        exclamation: '!',
+        colon: ':',
+        dash: '-',
+        newline: '\n',
+        tab: '\t'
       };
 
       // Функция для редактирования промежуточного текста
@@ -87,19 +87,19 @@
 
       // Обработчик начала распознавания
       recognition.onstart = () => {
-        console.log('Распознавание голоса запущено');
+        console.log('Speech recognition started');
         recognizing = true;
       };
 
       // Обработчик ошибок
       recognition.onerror = (event) => {
-        console.error('Ошибка распознавания:', event.error);
+        console.error('Speech recognition error:', event.error);
         recognizing = false;
       };
 
       // Обработчик завершения распознавания
       recognition.onend = () => {
-        console.log('Распознавание голоса закончено');
+        console.log('Speech recognition ended');
         if (recognizing) {
           recognition.start(); // Перезапуск, если распознавание не остановлено
         }
@@ -145,13 +145,13 @@
           case 'copy':
             navigator.clipboard.writeText(document.getElementById('final_text').value)
               .then(() => {
-                target.textContent = 'Готово';
+                target.textContent = 'Copied!';
                 setTimeout(() => {
-                  target.textContent = 'Копия';
+                  target.textContent = 'Copy';
                 }, 3000);
               })
               .catch((err) => {
-                console.error('Ошибка копирования:', err);
+                console.error('Copy error:', err);
               });
             break;
           case 'clear':
