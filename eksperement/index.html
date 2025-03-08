@@ -1,0 +1,156 @@
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Speech Recognition - Dictaphone</title>
+  <style>
+    #wrapper {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+      margin-bottom: 10px;
+    }
+    input {
+      width: 100%;
+      margin-bottom: 10px;
+    }
+    #buttons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
+    }
+    button {
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="wrapper">
+    <h1>Speech Recognition - Dictaphone</h1>
+    <textarea id="final_text" cols="30" rows="10"></textarea>
+    <input type="text" id="interim_text" />
+    <div id="buttons">
+      <button class="start">Старт</button>
+      <button class="stop">Стоп</button>
+      <button class="abort">Сброс</button>
+      <button class="copy">Копия</button>
+      <button class="clear">Очистить</button>
+    </div>
+  </div>
+
+  <script>
+    let final_transcript = '';
+    let recognizing = false;
+
+    const speechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new speechRecognition();
+    recognition.continuous = true;
+    recognition.interimResults = true;
+    recognition.maxAlternatives = 3;
+    recognition.lang = 'ru-RU';
+
+    const DICTIONARY = {
+      точка: '.',
+      запятая: ',',
+      вопрос: '?',
+      восклицание: '!',
+      двоеточие: ':',
+      тире: '-',
+      абзац: '\n',
+      отступ: '\t'
+    };
+
+    function editInterim(s) {
+      return s
+        .split(' ')
+        .map((word) => {
+          word = word.trim();
+          return DICTIONARY[word.toLowerCase()] ? DICTIONARY[word.toLowerCase()] : word;
+        })
+        .join(' ');
+    }
+
+    function editFinal(s) {
+      return s.replace(/\s{1,}([\.+,?!:-])/g, '$1');
+    }
+
+    recognition.onstart = () => {
+      console.log('Распознавание голоса запущено');
+    };
+
+    recognition.onerror = ({ error }) => {
+      console.error(error);
+    };
+
+    recognition.onend = () => {
+      console.log('Распознавание голоса закончено');
+      if (!recognizing) return;
+      recognition.start();
+    };
+
+    recognition.onresult = (e) => {
+      let interim_transcript = '';
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        if (e.results[i].isFinal) {
+          const result = editInterim(e.results[i][0].transcript);
+          final_transcript += result;
+        } else {
+          interim_transcript += e.results[i][0].transcript;
+        }
+      }
+      interim_text.value = interim_transcript;
+      final_transcript = editFinal(final_transcript);
+      final_text.value = final_transcript;
+    };
+
+    document.getElementById('buttons').onclick = ({ target }) => {
+      switch (target.className) {
+        case 'start':
+          final_transcript = '';
+          recognition.start();
+          recognizing = true;
+          final_text.value = '';
+          interim_text.value = '';
+          break;
+        case 'stop':
+          recognition.stop();
+          recognizing = false;
+          break;
+        case 'abort':
+          recognition.abort();
+          recognizing = false;
+          break;
+        case 'copy':
+          navigator.clipboard.writeText(final_text.value);
+          target.textContent = 'Готово';
+          const timerId = setTimeout(() => {
+            target.textContent = 'Копия';
+            clearTimeout(timerId);
+          }, 3000);
+          break;
+        case 'clear':
+          final_transcript = '';
+          final_text.value = '';
+          break;
+        default:
+          break;
+      }
+    };
+
+    function removeLastWord() {
+      const oldStr = final_text.value;
+      const newStr = oldStr.substring(0, oldStr.lastIndexOf(' '));
+      final_text.value = newStr;
+    }
+  </script>
+</body>
+</html>
