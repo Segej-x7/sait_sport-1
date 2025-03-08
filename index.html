@@ -14,7 +14,7 @@
     <h1>Расписание</h1>
     <label for="day-select">Выберите день недели:</label>
     <select id="day-select">
-        <option value="0">Воскресенье</option>
+        <option value="7">Воскресенье</option>
         <option value="1">Понедельник</option>
         <option value="2">Вторник</option>
         <option value="3">Среда</option>
@@ -40,7 +40,7 @@
 
         // Объект с расписанием для каждого дня недели
         const schedule = {
-            0: `
+            7: `
                 <h4>
                     <span class="red-text"><h3>Воскресенье: </h2></span><br />
                     ${displayMessage("Английский (видео)", "6:00", "6:30", "")}<br />
