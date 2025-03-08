@@ -28,23 +28,10 @@
         li {
             margin-bottom: 10px;
         }
-        .set-reps {
-            display: inline-block;
-            width: 50%;
-            text-align: right;
-        }
+        .set-reps,
         .rest-time {
-            display: inline-block;
-            width: 40%;
-            text-align: left;
-        }
-        @media only screen and (max-width: 600px) {
-            .set-reps,
-            .rest-time {
-                width: auto;
-                display: block;
-                text-align: left;
-            }
+            display: block; /* Изменено на блок, чтобы элементы были на новой строке */
+            text-align: left; /* Выравнивание по левому краю */
         }
     </style>
 </head>
