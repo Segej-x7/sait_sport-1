@@ -1,6 +1,7 @@
 let phrases = [];
 let currentPhraseIndex = 0;
 let recognizing = false;
+let userPhrase = ''; // Для хранения произнесенной пользователем фразы
 
 // Загрузка фраз из phrases.json
 fetch('phrases.json')
@@ -37,12 +38,16 @@ recognition.onend = () => {
   if (currentPhraseIndex < phrases.length - 1) {
     document.getElementById('next-btn').disabled = false;
   }
+  document.getElementById('repeat-btn').disabled = false; // Активируем кнопку "Повторить ввод"
 };
 
 // Обработчик результатов распознавания
 recognition.onresult = (event) => {
-  const userPhrase = event.results[0][0].transcript.trim();
+  userPhrase = event.results[0][0].transcript.trim(); // Сохраняем произнесенную фразу
   const correctPhrase = phrases[currentPhraseIndex].toLowerCase();
+
+  // Отображаем произнесенную фразу
+  document.getElementById('user-input').textContent = userPhrase;
 
   if (userPhrase.toLowerCase() === correctPhrase) {
     document.getElementById('result').textContent = 'Верно!';
@@ -66,8 +71,17 @@ document.getElementById('start-btn').addEventListener('click', () => {
   currentPhraseIndex = 0;
   document.getElementById('phrase').textContent = phrases[currentPhraseIndex];
   document.getElementById('result').textContent = '';
+  document.getElementById('user-input').textContent = '';
   document.getElementById('next-btn').disabled = true;
+  document.getElementById('repeat-btn').disabled = true;
   recognition.start();
+});
+
+// Обработчик кнопки "Повторить ввод"
+document.getElementById('repeat-btn').addEventListener('click', () => {
+  recognition.start(); // Повторно запускаем распознавание
+  document.getElementById('result').textContent = 'Слушаю...';
+  document.getElementById('repeat-btn').disabled = true;
 });
 
 // Обработчик кнопки "Следующая фраза"
@@ -76,7 +90,9 @@ document.getElementById('next-btn').addEventListener('click', () => {
     currentPhraseIndex++;
     document.getElementById('phrase').textContent = phrases[currentPhraseIndex];
     document.getElementById('result').textContent = '';
+    document.getElementById('user-input').textContent = '';
     document.getElementById('next-btn').disabled = true;
+    document.getElementById('repeat-btn').disabled = true;
     recognition.start();
   } else {
     document.getElementById('result').textContent = 'Вы завершили все фразы!';
