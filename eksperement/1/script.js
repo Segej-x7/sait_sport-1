@@ -55,7 +55,8 @@ recognition.onresult = (event) => {
 // Функция для произнесения фразы
 function speakPhrase(phrase) {
   const utterance = new SpeechSynthesisUtterance(phrase);
-  utterance.lang = 'en-US';
+  const accent = document.getElementById('accent').value; // Получаем выбранный акцент
+  utterance.lang = accent; // Устанавливаем акцент
   utterance.rate = parseFloat(document.getElementById('speed').value); // Устанавливаем скорость
   speechSynthesis.speak(utterance);
 }

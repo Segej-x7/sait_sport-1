@@ -79,3 +79,18 @@ button:hover:not(:disabled) {
   font-size: 16px;
   margin-left: 10px;
 }
+
+#accent-control {
+  margin-top: 20px;
+}
+
+#accent-control label {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+#accent-control select {
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 5px;
+}
