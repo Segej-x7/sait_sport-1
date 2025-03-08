@@ -1,23 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>English Speech Practice</title>
+  <title>Практика английского произношения</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="wrapper">
-    <h1>English Speech Practice</h1>
+    <h1>Практика английского произношения</h1>
     <div id="phrase-container">
-      <p id="phrase">Press "Start" to begin</p>
+      <p id="phrase">Нажмите "Начать" для старта</p>
     </div>
     <div id="result-container">
       <p id="result"></p>
     </div>
     <div id="buttons">
-      <button id="start-btn">Start</button>
-      <button id="next-btn" disabled>Next</button>
+      <button id="start-btn">Начать</button>
+      <button id="next-btn" disabled>Следующая фраза</button>
+    </div>
+    <div id="speed-control">
+      <label for="speed">Скорость произношения:</label>
+      <input type="range" id="speed" min="0.5" max="1.5" step="0.1" value="0.8">
+      <span id="speed-value">0.8</span>
     </div>
   </div>
 

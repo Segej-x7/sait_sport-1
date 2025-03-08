@@ -9,7 +9,7 @@ fetch('phrases.json')
     phrases = data;
     document.getElementById('start-btn').disabled = false;
   })
-  .catch((error) => console.error('Error loading phrases:', error));
+  .catch((error) => console.error('Ошибка загрузки фраз:', error));
 
 // Инициализация распознавания речи
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -21,13 +21,13 @@ recognition.maxAlternatives = 1;
 // Обработчик начала распознавания
 recognition.onstart = () => {
   recognizing = true;
-  document.getElementById('result').textContent = 'Listening...';
+  document.getElementById('result').textContent = 'Слушаю...';
 };
 
 // Обработчик ошибок
 recognition.onerror = (event) => {
-  console.error('Speech recognition error:', event.error);
-  document.getElementById('result').textContent = 'Error: Try again';
+  console.error('Ошибка распознавания:', event.error);
+  document.getElementById('result').textContent = 'Ошибка: Попробуйте еще раз';
   recognizing = false;
 };
 
@@ -45,9 +45,9 @@ recognition.onresult = (event) => {
   const correctPhrase = phrases[currentPhraseIndex].toLowerCase();
 
   if (userPhrase.toLowerCase() === correctPhrase) {
-    document.getElementById('result').textContent = 'Correct!';
+    document.getElementById('result').textContent = 'Верно!';
   } else {
-    document.getElementById('result').textContent = 'Incorrect. Listen to the correct phrase:';
+    document.getElementById('result').textContent = 'Ошибка. Слушайте правильное произношение:';
     speakPhrase(phrases[currentPhraseIndex]);
   }
 };
@@ -56,10 +56,11 @@ recognition.onresult = (event) => {
 function speakPhrase(phrase) {
   const utterance = new SpeechSynthesisUtterance(phrase);
   utterance.lang = 'en-US';
+  utterance.rate = parseFloat(document.getElementById('speed').value); // Устанавливаем скорость
   speechSynthesis.speak(utterance);
 }
 
-// Обработчик кнопки "Start"
+// Обработчик кнопки "Начать"
 document.getElementById('start-btn').addEventListener('click', () => {
   currentPhraseIndex = 0;
   document.getElementById('phrase').textContent = phrases[currentPhraseIndex];
@@ -68,7 +69,7 @@ document.getElementById('start-btn').addEventListener('click', () => {
   recognition.start();
 });
 
-// Обработчик кнопки "Next"
+// Обработчик кнопки "Следующая фраза"
 document.getElementById('next-btn').addEventListener('click', () => {
   if (currentPhraseIndex < phrases.length - 1) {
     currentPhraseIndex++;
@@ -77,6 +78,11 @@ document.getElementById('next-btn').addEventListener('click', () => {
     document.getElementById('next-btn').disabled = true;
     recognition.start();
   } else {
-    document.getElementById('result').textContent = 'You have completed all phrases!';
+    document.getElementById('result').textContent = 'Вы завершили все фразы!';
   }
+});
+
+// Обработчик изменения скорости произношения
+document.getElementById('speed').addEventListener('input', (event) => {
+  document.getElementById('speed-value').textContent = event.target.value;
 });

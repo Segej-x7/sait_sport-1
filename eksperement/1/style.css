@@ -61,3 +61,21 @@ button:disabled {
 button:hover:not(:disabled) {
   background-color: #0056b3;
 }
+
+#speed-control {
+  margin-top: 20px;
+}
+
+#speed-control label {
+  font-size: 16px;
+  margin-right: 10px;
+}
+
+#speed-control input {
+  width: 150px;
+}
+
+#speed-control span {
+  font-size: 16px;
+  margin-left: 10px;
+}
