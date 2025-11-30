@@ -108,102 +108,142 @@
         }
 
         // Объект с расписанием для каждого дня недели
-        const schedule = {
-            1: `
-                <h4>
-                    <span class="red-text"><h2>Понедельник: </h2></span><br />
-                    ${displayMessage("Отчет", "6:20", "6:30", "")}<br />
-                    ${displayMessage("Английский (видео)", "6:30", "6:45", "")}<br />
-                    ${displayMessage("Английский тесты", "6:45", "7:00", "")}<br />
-                    ${displayMessage("Завтрак", "7:00", "7:30", "")}<br/>
-                    ${displayMessage("Игра счет", "08:05", "08:20", "")}<br />
-                    ${displayMessage("Читать", "21:35", "21:55", "")}<br />
-                    ${displayMessage("sudoteach.com", "22:00", "23:00", "")}<br />
-                    ${displayMessage("Сон", "23:00", "6:20", "")}
-                </h4>
-            `,
-            2: `
-                <h4>
-                    <span class="red-text"><h2>Вторник:</h2></span> <br />
-                    ${displayMessage("Отчет", "6:20", "6:30", "")}<br />
-                    ${displayMessage("Английский (видео)", "6:30", "6:45", "")}<br />
-                    ${displayMessage("Английский тесты", "6:45", "7:00", "")}<br />
-                    ${displayMessage("Завтрак", "7:00", "7:30", "")}<br/>
-                    ${displayMessage("Игра счет", "08:05", "08:20", "")}<br />
-                    ${displayMessage("Читать", "21:35", "21:55", "")}<br />
-                    ${displayMessage("sudoteach.com", "22:00", "23:00", "")}<br />
-                    ${displayMessage("Сон", "23:00", "6:20", "")}
-                </h4>
-            `,
-            3: `
-                <h4>
-                    <span class="red-text"><h2>Среда: </h2></span><br />
-                    ${displayMessage("Отчет", "6:20", "6:30", "")}<br />
-                    ${displayMessage("Английский (видео)", "6:30", "6:45", "")}<br />
-                    ${displayMessage("Английский тесты", "6:45", "7:00", "")}<br />
-                    ${displayMessage("Завтрак", "7:00", "7:30", "")}<br/>
-                    ${displayMessage("Игра счет", "08:05", "08:20", "")}<br />
-                    ${displayMessage("Спорт", "19:00", "19:50", "https://sport1.guruerudit.ru/1/zaradka_1.html")}<br />
-                    ${displayMessage("Читать", "21:35", "21:55", "")}<br />
-                    ${displayMessage("sudoteach.com", "22:00", "23:00", "")}<br />
-                    ${displayMessage("Сон", "23:00", "6:20", "")}
-                </h4>
-            `,
-            4: `
-                <h4>
-                    <span class="red-text"><h2>Четверг: </h2></span><br />
-                    ${displayMessage("Отчет", "6:20", "6:30", "")}<br />
-                    ${displayMessage("Английский (видео)", "6:30", "6:45", "")}<br />
-                    ${displayMessage("Английский тесты", "6:45", "7:00", "")}<br />
-                    ${displayMessage("Завтрак", "7:00", "7:30", "")}<br/>
-                    ${displayMessage("Игра счет", "08:05", "08:20", "")}<br />
-                    ${displayMessage("Читать", "21:35", "21:55", "")}<br />
-                    ${displayMessage("sudoteach.com", "22:00", "23:00", "")}<br />
-                    ${displayMessage("Сон", "23:00", "6:20", "")}
-                </h4>
-            `,
-            5: `
-                <h4>
-                    <span class="red-text"><h2>Пятница: </h2></span><br />
-                   ${displayMessage("Отчет", "6:20", "6:30", "")}<br />
-                    ${displayMessage("Английский (видео)", "6:30", "6:45", "")}<br />
-                    ${displayMessage("Английский тесты", "6:45", "7:00", "")}<br />
-                    ${displayMessage("Завтрак", "7:00", "7:30", "")}<br/>
-                    ${displayMessage("Игра счет", "08:05", "08:20", "")}<br />
-                    ${displayMessage("Спорт", "19:00", "19:50", "https://sport1.guruerudit.ru/2/zaradka_2.html")}<br />
-                    ${displayMessage("Читать", "21:35", "21:55", "https://sport1.guruerudit.ru/eksperement/1/index.html")}<br />
-                    ${displayMessage("sudoteach.com", "22:00", "23:00", "")}<br />
-                    ${displayMessage("Сон", "23:00", "6:20", "")}
-                </h4>
-            `,
-            6: `
-                <h4>
-                    <span class="red-text"><h2>Суббота:</h2></span> <br />
-                    ${displayMessage("Отчет", "6:20", "6:30", "")}<br />
-                    ${displayMessage("Английский (видео)", "6:30", "6:45", "")}<br />
-                    ${displayMessage("Английский тесты", "6:45", "7:00", "")}<br />
-                    ${displayMessage("Завтрак", "7:00", "7:30", "")}<br/>
-                    ${displayMessage("Игра счет", "08:05", "08:20", "")}<br />
-                    ${displayMessage("Читать", "21:35", "21:55", "")}<br />
-                    ${displayMessage("sudoteach.com", "22:00", "23:00", "")}<br />
-                    ${displayMessage("Сон", "23:00", "6:20", "")}
-                </h4>
-            `,
-             0: `
-                <h4>
-                    <span class="red-text"><h3>Воскресенье: </h2></span><br />
-                    ${displayMessage("Отчет", "6:20", "6:30", "")}<br />
-                    ${displayMessage("Английский (видео)", "6:30", "6:45", "")}<br />
-                    ${displayMessage("Английский тесты", "6:45", "7:00", "")}<br />
-                    ${displayMessage("Завтрак", "7:00", "7:30", "")}<br/>
-                    ${displayMessage("Игра счет", "08:05", "08:20", "")}<br />
-                    ${displayMessage("Спорт", "11:30", "12:20", "https://sport1.guruerudit.ru/3/zaradka_3.html")}<br />
-                    ${displayMessage("Читать", "21:35", "21:55", "")}<br />
-                    ${displayMessage("sudoteach.com", "22:00", "23:00", "")}<br />
-                    ${displayMessage("Сон", "23:00", "6:20", "")}
-                </h4>
-            `
-        };
+const schedule = {
+    1: `
+        <h4>
+            <span class="red-text"><h2>Понедельник: </h2></span><br />
+            ${displayMessage("Проснуться", "5:40", "5:44", "")}<br />
+            ${displayMessage("Английский", "5:45", "6:29", "")}<br />
+            ${displayMessage("Отчет за прошлый день и английский", "6:30", "6:34", "")}<br />
+            ${displayMessage("Завтрак", "6:35", "6:59", "")}<br/>
+            ${displayMessage("Водные процедуры", "7:00", "7:15", "")}<br />
+            ${displayMessage("Выход из дома", "7:20", "7:20", "")}<br />
+            ${displayMessage("Фото с рабочего компьютера", "8:00", "8:00", "")}<br />
+            ${displayMessage("К маме", "18:00", "18:20", "")}<br />
+            ${displayMessage("Дуалинго", "18:25", "19:45", "")}<br />
+            ${displayMessage("Ужин", "19:20", "19:45", "")}<br />
+            ${displayMessage("Выход домой", "19:50", "19:50", "")}<br />
+            ${displayMessage("Троллейбус", "20:00", "20:20", "")}<br />
+            ${displayMessage("Занятия", "20:30", "21:55", "")}<br />
+            ${displayMessage("Водные процедуры", "22:00", "22:25", "")}<br />
+            ${displayMessage("Отбой", "22:30", "5:40", "")}
+        </h4>
+    `,
+    2: `
+        <h4>
+            <span class="red-text"><h2>Вторник: </h2></span><br />
+            ${displayMessage("Проснуться", "5:40", "5:44", "")}<br />
+            ${displayMessage("Английский", "5:45", "6:29", "")}<br />
+            ${displayMessage("Отчет за прошлый день и английский", "6:30", "6:34", "")}<br />
+            ${displayMessage("Завтрак", "6:35", "6:59", "")}<br/>
+            ${displayMessage("Водные процедуры", "7:00", "7:15", "")}<br />
+            ${displayMessage("Выход из дома", "7:20", "7:20", "")}<br />
+            ${displayMessage("Фото с рабочего компьютера", "8:00", "8:00", "")}<br />
+            ${displayMessage("К маме", "18:00", "18:20", "")}<br />
+            ${displayMessage("Зарядка", "18:25", "19:45", "")}<br />
+            ${displayMessage("Ужин", "19:20", "19:45", "")}<br />
+            ${displayMessage("Выход домой", "19:50", "19:50", "")}<br />
+            ${displayMessage("Троллейбус", "20:00", "20:20", "")}<br />
+            ${displayMessage("Занятия", "20:30", "21:55", "")}<br />
+            ${displayMessage("Водные процедуры", "22:00", "22:25", "")}<br />
+            ${displayMessage("Отбой", "22:30", "5:40", "")}
+        </h4>
+    `,
+    3: `
+        <h4>
+            <span class="red-text"><h2>Среда: </h2></span><br />
+            ${displayMessage("Проснуться", "5:40", "5:44", "")}<br />
+            ${displayMessage("Английский", "5:45", "6:29", "")}<br />
+            ${displayMessage("Отчет за прошлый день и английский", "6:30", "6:34", "")}<br />
+            ${displayMessage("Завтрак", "6:35", "6:59", "")}<br/>
+            ${displayMessage("Водные процедуры", "7:00", "7:15", "")}<br />
+            ${displayMessage("Выход из дома", "7:20", "7:20", "")}<br />
+            ${displayMessage("Фото с рабочего компьютера", "8:00", "8:00", "")}<br />
+            ${displayMessage("К маме", "18:00", "18:20", "")}<br />
+            ${displayMessage("Дуалинго", "18:25", "19:45", "")}<br />
+            ${displayMessage("Ужин", "19:20", "19:45", "")}<br />
+            ${displayMessage("Выход домой", "19:50", "19:50", "")}<br />
+            ${displayMessage("Троллейбус", "20:00", "20:20", "")}<br />
+            ${displayMessage("Занятия", "20:30", "21:55", "")}<br />
+            ${displayMessage("Водные процедуры", "22:00", "22:25", "")}<br />
+            ${displayMessage("Отбой", "22:30", "5:40", "")}
+        </h4>
+    `,
+    4: `
+        <h4>
+            <span class="red-text"><h2>Четверг: </h2></span><br />
+            ${displayMessage("Проснуться", "5:40", "5:44", "")}<br />
+            ${displayMessage("Английский", "5:45", "6:29", "")}<br />
+            ${displayMessage("Отчет за прошлый день и английский", "6:30", "6:34", "")}<br />
+            ${displayMessage("Завтрак", "6:35", "6:59", "")}<br/>
+            ${displayMessage("Водные процедуры", "7:00", "7:15", "")}<br />
+            ${displayMessage("Выход из дома", "7:20", "7:20", "")}<br />
+            ${displayMessage("Фото с рабочего компьютера", "8:00", "8:00", "")}<br />
+            ${displayMessage("К маме", "18:00", "18:20", "")}<br />
+            ${displayMessage("Зарядка", "18:25", "19:45", "")}<br />
+            ${displayMessage("Ужин", "19:20", "19:45", "")}<br />
+            ${displayMessage("Выход домой", "19:50", "19:50", "")}<br />
+            ${displayMessage("Троллейбус", "20:00", "20:20", "")}<br />
+            ${displayMessage("Занятия", "20:30", "21:55", "")}<br />
+            ${displayMessage("Водные процедуры", "22:00", "22:25", "")}<br />
+            ${displayMessage("Отбой", "22:30", "5:40", "")}
+        </h4>
+    `,
+    5: `
+        <h4>
+            <span class="red-text"><h2>Пятница: </h2></span><br />
+            ${displayMessage("Проснуться", "5:40", "5:44", "")}<br />
+            ${displayMessage("Английский", "5:45", "6:29", "")}<br />
+            ${displayMessage("Отчет за прошлый день и английский", "6:30", "6:34", "")}<br />
+            ${displayMessage("Завтрак", "6:35", "6:59", "")}<br/>
+            ${displayMessage("Водные процедуры", "7:00", "7:15", "")}<br />
+            ${displayMessage("Выход из дома", "7:20", "7:20", "")}<br />
+            ${displayMessage("Фото с рабочего компьютера", "8:00", "8:00", "")}<br />
+            ${displayMessage("К маме", "18:00", "18:20", "")}<br />
+            ${displayMessage("Дуалинго", "18:25", "19:45", "")}<br />
+            ${displayMessage("Ужин", "19:20", "19:45", "")}<br />
+            ${displayMessage("Выход домой", "19:50", "19:50", "")}<br />
+            ${displayMessage("Троллейбус", "20:00", "20:20", "")}<br />
+            ${displayMessage("Занятия", "20:30", "21:55", "")}<br />
+            ${displayMessage("Водные процедуры", "22:00", "22:25", "")}<br />
+            ${displayMessage("Отбой", "22:30", "5:40", "")}
+        </h4>
+    `,
+    6: `
+        <h4>
+            <span class="red-text"><h2>Суббота:</h2></span> <br />
+            ${displayMessage("Проснуться", "5:40", "5:44", "")}<br />
+            ${displayMessage("Английский", "5:45", "6:25", "")}<br />
+            ${displayMessage("Отчет за прошлый день и английский", "6:30", "6:34", "")}<br />
+            ${displayMessage("Завтрак", "6:35", "6:55", "")}<br/>
+            ${displayMessage("Водные процедуры", "7:00", "7:15", "")}<br />
+            ${displayMessage("Курс", "7:20", "12:00", "")}<br />
+            ${displayMessage("К маме", "18:00", "18:20", "")}<br />
+            ${displayMessage("Зарядка", "18:20", "19:15", "")}<br />
+            ${displayMessage("Ужин", "19:20", "19:45", "")}<br />
+            ${displayMessage("Выход домой", "19:50", "19:50", "")}<br />
+            ${displayMessage("Троллейбус", "20:00", "20:20", "")}<br />
+            ${displayMessage("Занятия", "20:30", "21:55", "")}<br />
+            ${displayMessage("Водные процедуры", "22:00", "22:25", "")}<br />
+            ${displayMessage("Отбой", "22:30", "5:40", "")}
+        </h4>
+    `,
+     0: `
+        <h4>
+            <span class="red-text"><h2>Воскресенье: </h2></span><br />
+            ${displayMessage("Проснуться", "5:40", "5:44", "")}<br />
+            ${displayMessage("Английский", "5:45", "6:25", "")}<br />
+            ${displayMessage("Отчет за прошлый день и английский", "6:30", "6:30", "")}<br />
+            ${displayMessage("Завтрак", "6:35", "6:55", "")}<br/>
+            ${displayMessage("Водные процедуры", "7:00", "7:15", "")}<br />
+            ${displayMessage("Курс", "7:20", "12:00", "")}<br />
+            ${displayMessage("Дуалинго", "18:25", "19:45", "")}<br />
+            ${displayMessage("Занятия", "20:30", "21:55", "")}<br />
+            ${displayMessage("Водные процедуры", "22:00", "22:25", "")}<br />
+            ${displayMessage("Отбой", "22:30", "5:40", "")}
+        </h4>
+    `
+};
 
         // Функция для обновления расписания на странице
         function updateSchedule() {
@@ -223,3 +263,4 @@
     </script>
 </body>
 </html>
+
